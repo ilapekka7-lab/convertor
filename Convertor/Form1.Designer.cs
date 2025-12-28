@@ -30,10 +30,12 @@
         {
             tb1 = new TextBox();
             convert = new Button();
-            cb1 = new ComboBox();
+            cbOut = new ComboBox();
             lb1 = new LinkLabel();
             lb2 = new Label();
             btnUpdate = new Button();
+            cbIn = new ComboBox();
+            tbConsole = new TextBox();
             SuspendLayout();
             // 
             // tb1
@@ -45,7 +47,7 @@
             // 
             // convert
             // 
-            convert.Location = new Point(75, 95);
+            convert.Location = new Point(397, 95);
             convert.Name = "convert";
             convert.Size = new Size(117, 23);
             convert.TabIndex = 3;
@@ -53,16 +55,16 @@
             convert.UseVisualStyleBackColor = true;
             convert.Click += convert_Click;
             // 
-            // cb1
+            // cbOut
             // 
-            cb1.FormattingEnabled = true;
-            cb1.Items.AddRange(new object[] { "доллары в рубли", "рубли в доллары" });
-            cb1.Location = new Point(237, 96);
-            cb1.Name = "cb1";
-            cb1.RightToLeft = RightToLeft.No;
-            cb1.Size = new Size(121, 23);
-            cb1.TabIndex = 4;
-            cb1.SelectedIndexChanged += cb1_SelectedIndexChanged;
+            cbOut.FormattingEnabled = true;
+            cbOut.Items.AddRange(new object[] { "доллары в рубли", "рубли в доллары" });
+            cbOut.Location = new Point(237, 96);
+            cbOut.Name = "cbOut";
+            cbOut.RightToLeft = RightToLeft.No;
+            cbOut.Size = new Size(121, 23);
+            cbOut.TabIndex = 4;
+            cbOut.SelectedIndexChanged += cb1_SelectedIndexChanged;
             // 
             // lb1
             // 
@@ -94,15 +96,33 @@
             btnUpdate.UseVisualStyleBackColor = true;
             btnUpdate.Click += btnUpdate_Click;
             // 
+            // cbIn
+            // 
+            cbIn.FormattingEnabled = true;
+            cbIn.Location = new Point(75, 95);
+            cbIn.Name = "cbIn";
+            cbIn.Size = new Size(121, 23);
+            cbIn.TabIndex = 8;
+            // 
+            // tbConsole
+            // 
+            tbConsole.Location = new Point(277, 247);
+            tbConsole.Multiline = true;
+            tbConsole.Name = "tbConsole";
+            tbConsole.Size = new Size(304, 191);
+            tbConsole.TabIndex = 9;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(tbConsole);
+            Controls.Add(cbIn);
             Controls.Add(btnUpdate);
             Controls.Add(lb2);
             Controls.Add(lb1);
-            Controls.Add(cb1);
+            Controls.Add(cbOut);
             Controls.Add(convert);
             Controls.Add(tb1);
             Name = "Form1";
@@ -115,9 +135,11 @@
         #endregion
         private TextBox tb1;
         private Button convert;
-        private ComboBox cb1;
+        private ComboBox cbOut;
         private LinkLabel lb1;
         private Label lb2;
         private Button btnUpdate;
+        private ComboBox cbIn;
+        private TextBox tbConsole;
     }
 }

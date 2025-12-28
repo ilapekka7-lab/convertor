@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Convertor.Models;
+using System.Text.Json;
 
 
 namespace Convertor
@@ -6,14 +7,13 @@ namespace Convertor
     public partial class Form1 : Form
     {
         double price = 78;
+        ValuteList _valutes;
         public Form1()
         {
             InitializeComponent();
-            cb1.DropDownStyle = ComboBoxStyle.DropDownList;
-            cb1.Items.Clear();
-            cb1.Items.Add("доллары в рубли");
-            cb1.Items.Add("рубли в доллары");
-            cb1.SelectedIndex = 1;
+            cbOut.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbIn.DropDownStyle = ComboBoxStyle.DropDownList;
+            
             convert.Text = "конвертировать";
             lb2.Text = $"{price} рублей за доллар";
             UpdateRateFromCbr();
@@ -28,17 +28,36 @@ namespace Convertor
                 using var client = new HttpClient();
                 var json = await client.GetStringAsync("https://www.cbr-xml-daily.ru/daily_json.js");
 
-                // Парсим JSON
+                
                 using var document = JsonDocument.Parse(json);
                 var usdValue = document.RootElement
                     .GetProperty("Valute")
                     .GetProperty("USD")
                     .GetProperty("Value")
-                    .GetDouble(); // ← Реальный курс!
+                    .GetDouble(); 
 
                 price = usdValue;
                 lb2.Text = $"{price:F2} рублей за доллар";
 
+                _valutes = JsonSerializer.Deserialize<ValuteList>(json);
+
+               
+                List<string> valutesNames = new List<string>();
+                
+                foreach ( var valute in _valutes.Valute )
+                {
+                   
+                    valutesNames.Add(valute.Key.ToString());
+                }
+
+                cbIn.Items.Clear();
+                cbOut.Items.Clear();
+
+               foreach(var item in valutesNames)
+                {
+                    cbIn.Items.Add(item);
+                    cbOut.Items.Add(item);
+                }
 
             }
             catch
@@ -63,10 +82,10 @@ namespace Convertor
                 return;
             }
 
-            if (cb1.Text == "доллары в рубли")
+            if (cbOut.Text == "доллары в рубли")
                 result = a * price;
 
-            if (cb1.Text == "рубли в доллары")
+            if (cbOut.Text == "рубли в доллары")
                 result = a / price;
 
             lb1.Text = result.ToString("F2");
