@@ -20,6 +20,7 @@ namespace Convertor
             
             UpdateRateFromCbr();
             btnUpdate.Text = "Обновить";
+            lb2.Text = "Курс";
 
         }
 
