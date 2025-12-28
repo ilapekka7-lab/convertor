@@ -46,7 +46,6 @@ namespace Convertor
                 
                 foreach ( var valute in _valutes.Valute )
                 {
-                   
                     valutesNames.Add(valute.Key.ToString());
                 }
 
