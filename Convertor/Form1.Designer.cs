@@ -64,7 +64,7 @@
             cbOut.RightToLeft = RightToLeft.No;
             cbOut.Size = new Size(121, 23);
             cbOut.TabIndex = 4;
-            cbOut.SelectedIndexChanged += cb1_SelectedIndexChanged;
+            cbOut.SelectedIndexChanged += cbOut_SelectedIndexChanged;
             // 
             // lb1
             // 
@@ -103,6 +103,7 @@
             cbIn.Name = "cbIn";
             cbIn.Size = new Size(121, 23);
             cbIn.TabIndex = 8;
+            cbIn.SelectedIndexChanged += cbIn_SelectedIndexChanged;
             // 
             // tbConsole
             // 
