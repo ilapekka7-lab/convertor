@@ -7,19 +7,20 @@ namespace Convertor
     public partial class Form1 : Form
     {
         double Price = 0;
-        string In = string.Empty;
-        string Out = string.Empty;
+        string In = "AUD";
+        string Out = "AUD";
         ValuteList _valutes;
         public Form1()
         {
             InitializeComponent();
             cbOut.DropDownStyle = ComboBoxStyle.DropDownList;
             cbIn.DropDownStyle = ComboBoxStyle.DropDownList;
-
+           
             convert.Text = "конвертировать";
-            lb2.Text = $"{Price} {In} за {Out}";
+            
             UpdateRateFromCbr();
             btnUpdate.Text = "Обновить";
+
         }
 
 
@@ -32,29 +33,35 @@ namespace Convertor
 
 
                 using var document = JsonDocument.Parse(json);
-                var usdValue = document.RootElement
+                var Value1 = document.RootElement
                     .GetProperty("Valute")
-                    .GetProperty("USD")
+                    .GetProperty(In)
                     .GetProperty("Value")
                     .GetDouble();
+                var Value2 = document.RootElement
+                   .GetProperty("Valute")
+                   .GetProperty(Out)
+                   .GetProperty("Value")
+                   .GetDouble();
 
-                Price = usdValue;
+                Price = Value1 / Value2;
                 lb2.Text = $"{Price:F2} {In} за {Out}";
 
                 _valutes = JsonSerializer.Deserialize<ValuteList>(json);
 
 
-                List<string> valutesNames = new List<string>();
+                List<string> valutesKeys = new List<string>();
+              
 
                 foreach (var valute in _valutes.Valute)
                 {
-                    valutesNames.Add(valute.Key.ToString());
+                    valutesKeys.Add(valute.Key.ToString());
                 }
 
                 cbIn.Items.Clear();
                 cbOut.Items.Clear();
 
-                foreach (var item in valutesNames)
+                foreach (var item in valutesKeys)
                 {
                     cbIn.Items.Add(item);
                     cbOut.Items.Add(item);
@@ -83,7 +90,7 @@ namespace Convertor
                 return;
             }
 
-
+            result = Convert.ToDouble(tb1.Text) * Price;
 
             lb1.Text = result.ToString("F2");
         }
@@ -92,6 +99,7 @@ namespace Convertor
         {
             Out = cbOut.Text;
             lb2.Text = $"{Price:F2} {In} за {Out}";
+            UpdateRateFromCbr();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -105,6 +113,7 @@ namespace Convertor
         {
             In = cbIn.Text;
             lb2.Text = $"{Price:F2} {In} за {Out}";
+            UpdateRateFromCbr();
         }
     }
 }
