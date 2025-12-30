@@ -39,17 +39,29 @@ namespace Convertor
 
                     using var document = JsonDocument.Parse(json);
                     var valuteObj = document.RootElement.GetProperty("Valute");
+                    double Value1;
+                    double Value2;
+                    if (In == "Рубль") Value1 = 1;
 
-                    var Value1 = valuteObj.EnumerateObject()
+                    else
+                    {
+                        Value1 = valuteObj.EnumerateObject()
                         .First(x => x.Value.GetProperty("Name").GetString() == In)
                         .Value.GetProperty("Value").GetDouble();
+                    }
 
-                    var Value2 = valuteObj.EnumerateObject()
+                    if (Out == "Рубль") Value2 = 1;
+
+                    else
+                    {
+                        Value2 = valuteObj.EnumerateObject()
                         .First(x => x.Value.GetProperty("Name").GetString() == Out)
                         .Value.GetProperty("Value").GetDouble();
+                    }
+                   
 
                     Price = Value1 / Value2;
-                    lb2.Text = $"{Price:F2} {In} за {Out}";
+                    lb2.Text = $"{Price:F2} {Out} за {In}";
 
 
                 }
@@ -73,7 +85,7 @@ namespace Convertor
 
                 // List<string> valutesKeys = new List<string>();
 
-
+                valutesKeys.Add("Рубль");
                 foreach (var valute in _valutes.Valute)
                 {
                     valutesKeys.Add(valute.Value.Name.ToString());
@@ -117,7 +129,7 @@ namespace Convertor
         private void cbOut_SelectedIndexChanged(object sender, EventArgs e)
         {
             Out = cbOut.Text;
-            lb2.Text = $"{Price:F2} {In} за {Out}";
+           
             UpdateRateFromCbr();
         }
 
@@ -134,7 +146,7 @@ namespace Convertor
         {
             
             In = cbIn.Text;
-            lb2.Text = $"{Price:F2} {In} за {Out}";
+           
             UpdateRateFromCbr();
         }
     }

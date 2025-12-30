@@ -59,7 +59,7 @@
             // 
             cbOut.FormattingEnabled = true;
             cbOut.Items.AddRange(new object[] { "доллары в рубли", "рубли в доллары" });
-            cbOut.Location = new Point(237, 96);
+            cbOut.Location = new Point(75, 96);
             cbOut.Name = "cbOut";
             cbOut.RightToLeft = RightToLeft.No;
             cbOut.Size = new Size(121, 23);
@@ -99,7 +99,7 @@
             // cbIn
             // 
             cbIn.FormattingEnabled = true;
-            cbIn.Location = new Point(75, 95);
+            cbIn.Location = new Point(237, 96);
             cbIn.Name = "cbIn";
             cbIn.Size = new Size(121, 23);
             cbIn.TabIndex = 8;
