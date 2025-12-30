@@ -82,9 +82,9 @@
             lb2.AutoSize = true;
             lb2.Location = new Point(237, 48);
             lb2.Name = "lb2";
-            lb2.Size = new Size(38, 15);
+            lb2.Size = new Size(32, 15);
             lb2.TabIndex = 6;
-            lb2.Text = "label1";
+            lb2.Text = "курс";
             // 
             // btnUpdate
             // 
