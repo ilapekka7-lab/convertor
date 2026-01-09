@@ -7,8 +7,8 @@ namespace Convertor
     {
 
         ValuteList _valutes;
-        private int rectX = 0;  // Позиция X
-        private int direction = 1;  // 1=вправо, -1=влево
+        private int rectX = 0;  
+        private int direction = 1; 
         private int colorIndex = 0;
 
         private Color[] colors = { Color.Black, Color.Red, Color.Blue, Color.Green, Color.Yellow, Color.Magenta, Color.Cyan };
@@ -19,10 +19,10 @@ namespace Convertor
         {
             InitializeComponent();
             this.Size = new Size(800, 600);
-            this.Text = "Двигающийся прямоугольник";
-            this.DoubleBuffered = true;  // Плавная анимация
+           
+            this.DoubleBuffered = true;  
 
-            moveTimer.Interval = 20;  // Скорость
+            moveTimer.Interval = 20;  
             moveTimer.Tick += MoveTimer_Tick;
             moveTimer.Start();
 
@@ -31,29 +31,29 @@ namespace Convertor
 
         private void MoveTimer_Tick(object sender, EventArgs e)
         {
-            // Движение вправо-влево
+           
             rectX += 10 * direction;
 
-            // Отскок от краёв
+           
             if (rectX <= 0)
             {
                 rectX = 0;
-                direction = 1;  // Вправо
+                direction = 1;  
                 colorIndex = (colorIndex + 1) % colors.Length;
             }
             if (rectX >= this.ClientSize.Width - 60)
             {
                 rectX = this.ClientSize.Width - 60;
-                direction = -1;  // Влево
+                direction = -1;  
                 colorIndex = (colorIndex + 1) % colors.Length;
             }
 
-            this.Invalidate();  // Перерисовка
+            this.Invalidate();  
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            // Чёрный прямоугольник ниже центра
+            
             int rectY = this.ClientSize.Height / 2 + 50;
             Rectangle rect = new Rectangle(rectX, rectY, 60, 30);
 
