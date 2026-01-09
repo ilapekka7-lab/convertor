@@ -68,6 +68,9 @@ namespace Convertor
                 catch
                 {
                     MessageBox.Show(" Ошибка загрузки. Используется курс по умолчанию.");
+                    Form2 errorForm = new Form2();
+                    this.Hide();
+                    errorForm.Show();
                 }
             }
 
@@ -83,7 +86,7 @@ namespace Convertor
                 _valutes = JsonSerializer.Deserialize<ValuteList>(json);
 
 
-                // List<string> valutesKeys = new List<string>();
+               
                 cbIn.Items.Clear();
                 cbOut.Items.Clear();
 
@@ -104,6 +107,9 @@ namespace Convertor
             catch
             {
                 MessageBox.Show(" Ошибка загрузки. Не удаётся загрузить валюты");
+                Form2 errorForm = new Form2();
+                this.Hide();
+                errorForm.Show();
             }
         }
 
@@ -153,8 +159,16 @@ namespace Convertor
                 UpdateValutes();
 
             UpdateRateFromCbr();
-           ConvertValue();
+            
+            if(tb1.Text != "" && tb2.Text != "")
+            {
+                double result = 0;
 
+                result = Convert.ToDouble(tb1.Text) / Price;
+
+                tb2.Text = result.ToString("F2");
+            }
+           
 
         }
 
@@ -168,4 +182,5 @@ namespace Convertor
 
        
     }
+  
 }
