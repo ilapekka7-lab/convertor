@@ -29,7 +29,7 @@ namespace Convertor
 
         private async void UpdateRateFromCbr()
         {
-            if(In != string.Empty && Out != string.Empty)
+            if (In != string.Empty && Out != string.Empty)
             {
                 try
                 {
@@ -41,7 +41,7 @@ namespace Convertor
                     var valuteObj = document.RootElement.GetProperty("Valute");
                     double Value1;
                     double Value2;
-                    if (In == "Рубль") Value1 = 1;
+                    if (In == "Российский Рубль") Value1 = 1;
 
                     else
                     {
@@ -50,7 +50,7 @@ namespace Convertor
                         .Value.GetProperty("Value").GetDouble();
                     }
 
-                    if (Out == "Рубль") Value2 = 1;
+                    if (Out == "Российский Рубль") Value2 = 1;
 
                     else
                     {
@@ -58,7 +58,7 @@ namespace Convertor
                         .First(x => x.Value.GetProperty("Name").GetString() == Out)
                         .Value.GetProperty("Value").GetDouble();
                     }
-                   
+
 
                     Price = Value1 / Value2;
                     lb2.Text = $"{Price:F2} {Out} за {In}";
@@ -70,7 +70,7 @@ namespace Convertor
                     MessageBox.Show(" Ошибка загрузки. Используется курс по умолчанию.");
                 }
             }
-           
+
         }
 
         private async void UpdateValutes()
@@ -84,15 +84,15 @@ namespace Convertor
 
 
                 // List<string> valutesKeys = new List<string>();
+                cbIn.Items.Clear();
+                cbOut.Items.Clear();
 
-                valutesKeys.Add("Рубль");
+                valutesKeys.Add("Российский Рубль");
                 foreach (var valute in _valutes.Valute)
                 {
                     valutesKeys.Add(valute.Value.Name.ToString());
                 }
-
-                cbIn.Items.Clear();
-                cbOut.Items.Clear();
+                valutesKeys.Sort();
 
                 foreach (var item in valutesKeys)
                 {
@@ -107,12 +107,8 @@ namespace Convertor
             }
         }
 
-
-        private void convert_Click(object sender, EventArgs e)
+        private void ConvertValue()
         {
-
-
-
             double result = 0;
 
             if (!double.TryParse(tb1.Text, out double a) || a <= 0)
@@ -121,33 +117,55 @@ namespace Convertor
                 return;
             }
 
-            result = Convert.ToDouble(tb1.Text) * Price;
+            if (cbIn.Text == "" || cbOut.Text == "")
+            {
+                MessageBox.Show("Выберите тип валюты!");
+                return;
 
-            lb1.Text = result.ToString("F2");
+            }
+
+
+            result = Convert.ToDouble(tb1.Text) / Price;
+
+            tb2.Text = result.ToString("F2");
+
+        }
+        private void convert_Click(object sender, EventArgs e)
+        {
+
+            ConvertValue();
+
         }
 
         private void cbOut_SelectedIndexChanged(object sender, EventArgs e)
         {
             Out = cbOut.Text;
-           
+
             UpdateRateFromCbr();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            btnUpdate.Text = "Курс обновлён";
-            UpdateRateFromCbr();
 
-            UpdateValutes();
+            btnUpdate.Text = "Курс обновлён";
+
+            if (cbIn.Items.Count == 0 && cbOut.Items.Count == 0)
+                UpdateValutes();
+
+            UpdateRateFromCbr();
+           ConvertValue();
+
 
         }
 
         private void cbIn_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             In = cbIn.Text;
-           
+
             UpdateRateFromCbr();
         }
+
+       
     }
 }

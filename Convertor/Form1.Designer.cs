@@ -31,23 +31,23 @@
             tb1 = new TextBox();
             convert = new Button();
             cbOut = new ComboBox();
-            lb1 = new LinkLabel();
             lb2 = new Label();
             btnUpdate = new Button();
             cbIn = new ComboBox();
             tbConsole = new TextBox();
+            tb2 = new TextBox();
             SuspendLayout();
             // 
             // tb1
             // 
-            tb1.Location = new Point(75, 40);
+            tb1.Location = new Point(81, 35);
             tb1.Name = "tb1";
             tb1.Size = new Size(75, 23);
             tb1.TabIndex = 1;
             // 
             // convert
             // 
-            convert.Location = new Point(397, 95);
+            convert.Location = new Point(325, 86);
             convert.Name = "convert";
             convert.Size = new Size(117, 23);
             convert.TabIndex = 3;
@@ -58,29 +58,17 @@
             // cbOut
             // 
             cbOut.FormattingEnabled = true;
-            cbOut.Items.AddRange(new object[] { "доллары в рубли", "рубли в доллары" });
-            cbOut.Location = new Point(75, 96);
+            cbOut.Location = new Point(183, 35);
             cbOut.Name = "cbOut";
             cbOut.RightToLeft = RightToLeft.No;
             cbOut.Size = new Size(121, 23);
             cbOut.TabIndex = 4;
             cbOut.SelectedIndexChanged += cbOut_SelectedIndexChanged;
             // 
-            // lb1
-            // 
-            lb1.AutoSize = true;
-            lb1.LinkColor = Color.Black;
-            lb1.Location = new Point(90, 154);
-            lb1.Name = "lb1";
-            lb1.Size = new Size(41, 15);
-            lb1.TabIndex = 5;
-            lb1.TabStop = true;
-            lb1.Text = "вывод";
-            // 
             // lb2
             // 
             lb2.AutoSize = true;
-            lb2.Location = new Point(237, 48);
+            lb2.Location = new Point(325, 43);
             lb2.Name = "lb2";
             lb2.Size = new Size(32, 15);
             lb2.TabIndex = 6;
@@ -99,7 +87,7 @@
             // cbIn
             // 
             cbIn.FormattingEnabled = true;
-            cbIn.Location = new Point(237, 96);
+            cbIn.Location = new Point(183, 86);
             cbIn.Name = "cbIn";
             cbIn.Size = new Size(121, 23);
             cbIn.TabIndex = 8;
@@ -113,16 +101,24 @@
             tbConsole.Size = new Size(304, 191);
             tbConsole.TabIndex = 9;
             // 
+            // tb2
+            // 
+            tb2.Enabled = false;
+            tb2.Location = new Point(81, 87);
+            tb2.Name = "tb2";
+            tb2.Size = new Size(75, 23);
+            tb2.TabIndex = 10;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(tb2);
             Controls.Add(tbConsole);
             Controls.Add(cbIn);
             Controls.Add(btnUpdate);
             Controls.Add(lb2);
-            Controls.Add(lb1);
             Controls.Add(cbOut);
             Controls.Add(convert);
             Controls.Add(tb1);
@@ -137,10 +133,10 @@
         private TextBox tb1;
         private Button convert;
         private ComboBox cbOut;
-        private LinkLabel lb1;
         private Label lb2;
         private Button btnUpdate;
         private ComboBox cbIn;
         private TextBox tbConsole;
+        private TextBox tb2;
     }
 }
