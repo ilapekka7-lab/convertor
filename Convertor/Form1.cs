@@ -117,12 +117,22 @@ namespace Convertor
         {
             double result = 0;
 
-            if (!double.TryParse(tb1.Text, out double a) || a <= 0)
+            double input = 1;
+
+            if(tb1.Text != "")
+            {
+                input = Convert.ToDouble(tb1.Text);
+            }
+            if (input <= 0)
             {
                 MessageBox.Show("Введите корректную сумму!");
                 return;
             }
-
+            if (input == null)
+            {
+                input = 1;
+               
+            }
             if (cbIn.Text == "" || cbOut.Text == "")
             {
                 MessageBox.Show("Выберите тип валюты!");
@@ -131,7 +141,7 @@ namespace Convertor
             }
 
 
-            result = Convert.ToDouble(tb1.Text) / Price;
+            result = input / Price;
 
             tb2.Text = result.ToString("F2");
 
@@ -140,6 +150,7 @@ namespace Convertor
         {
 
             ConvertValue();
+
 
         }
 
